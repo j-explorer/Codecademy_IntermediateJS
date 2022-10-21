@@ -1,0 +1,137 @@
+/* 
+For the code below: 
+
+We need to create classes for primary and high schools. Because these classes share properties and methods, 
+each will inherit from a parent School class. Our parent and three child classes have the following properties, 
+getters, setters, and methods: ...
+
+If you’re looking for a challenge, create the constructor() and getters for the four classes above. 
+Then, use the setter and methods specifications in steps five, six, and seven to finish the project. 
+
+class School {
+  constructor(name, numberOfStudents) {
+    this._name = name;
+    this._numberOfStudents = numberOfStudents;
+    this._level = ('primary' || 'middle' || 'high');
+   }
+
+   get name () {
+     return this._name;
+   }
+
+   get numberOfStudents () {
+     return this._numberOfStudents;
+   }
+
+   get level () {
+     return this._level;
+   }
+
+   set numberOfStudents (newNumber) {
+     this._numberOfStudents = newNumber;
+   }
+}
+
+class Primary extends School {
+  constructor (name, numberOfStudents, level, pickupPolicy) {
+    super(name, numberOfStudents);
+    this._level = level;
+    this._pickupPolicy = pickupPolicy;
+  }
+
+}
+
+class Middle extends School {
+  constructor (name, numberOfStudents, level) {
+    super(name, numberOfStudents);
+    this._level = level;
+  }
+
+class High extends School {
+  constructor (name, numberOfStudents, level, sportsTeams) {
+    super(name, numberOfStudents);
+    this._level = level;
+    this._sportsTeams = sportsTeams;
+  }
+}
+
+const primary = new Primary('Haley', 5,'level');
+
+console.log(primary.level)
+
+*/
+
+class School {
+  constructor(name, numberOfStudents, level) {
+    this._name = name;
+    this._numberOfStudents = numberOfStudents;
+    this._level = level;
+   }
+
+   get name () {
+     return this._name;
+   }
+
+   get numberOfStudents () {
+     return this._numberOfStudents;
+   }
+
+   get level () {
+     return this._level;
+   }
+
+   quickFacts () {
+     console.log(`${this._name} educates ${this._numberOfStudents} students at the ${this._level} school level.`)
+   }
+
+   static pickSubstituteTeacher (substituteTeachers) {
+ const teacher = Math.floor(Math.random()*(substituteTeachers.length));
+    return substituteTeachers[teacher];
+   }
+   
+   set numberOfStudents (newNumber) {
+     if (typeof newNumber === 'number') {
+     this._numberOfStudents = newNumber;
+     } else { return 'Invalid input: numberOfStudents must be set to a Number.'}
+   }
+}
+
+class Primary extends School {
+  constructor (name, numberOfStudents, pickupPolicy) {
+    super(name, numberOfStudents, 'primary');
+    this._pickupPolicy = pickupPolicy;
+  }
+
+  get pickupPolicy () {
+    return this._pickupPolicy;
+  }
+
+}
+
+class Middle extends School {
+  constructor (name, numberOfStudents) {
+    super(name, numberOfStudents, 'middle');
+  }
+}
+
+class High extends School {
+  constructor (name, numberOfStudents, sportsTeams) {
+    super(name, numberOfStudents, 'high');
+    this._sportsTeams = sportsTeams;
+  }
+
+  get sportsTeams () {
+    return this._sportsTeams;
+  }
+}
+
+//instances
+
+const lorraineHansbury = new Primary ('Lorraine Hansbury', 514, 'Students must be picked up by a parent, guardian, or a family member over the age of 13.');
+
+const alSmith = new High ('Al E. Smith', 415, ['Baseball', 'Basketball', 'Volleyball', 'Track and Field']);
+
+lorraineHansbury.quickFacts();
+console.log(School.pickSubstituteTeacher(['Jamal Crawford', 'Lou Williams', 'J. R. Smith', 'James Harden', 'Jason Terry', 'Manu Ginobli']));
+
+console.log(alSmith.sportsTeams);
